@@ -33,6 +33,58 @@ jsonDecode(json['${element.name}'].toString()) as Map<String, dynamic>
     return buffer.toString();
   }
 
+  /// A function that will append the word 'Value' to a name that is a protected
+  /// keyword in Dart.
+  /// For example, if the name is 'class', it will return 'classValue'.
+  String _appendValue(String name) {
+    if (name == 'class' ||
+        name == 'abstract' ||
+        name == 'dynamic' ||
+        name == 'enum' ||
+        name == 'final' ||
+        name == 'native' ||
+        name == 'typedef' ||
+        name == 'void' ||
+        name == 'var' ||
+        name == 'void' ||
+        name == 'async' ||
+        name == 'await' ||
+        name == 'yield' ||
+        name == 'deferred' ||
+        name == 'external' ||
+        name == 'factory' ||
+        name == 'implements' ||
+        name == 'interface' ||
+        name == 'is' ||
+        name == 'mixin' ||
+        name == 'operator' ||
+        name == 'part' ||
+        name == 'static' ||
+        name == 'this' ||
+        name == 'typedef' ||
+        name == 'yield' ||
+        name == 'abstract' ||
+        name == 'assert' ||
+        name == 'break' ||
+        name == 'case' ||
+        name == 'catch' ||
+        name == 'class' ||
+        name == 'const' ||
+        name == 'continue' ||
+        name == 'default' ||
+        name == 'do' ||
+        name == 'else' ||
+        name == 'enum' ||
+        name == 'extends' ||
+        name == 'false' ||
+        name == 'final' ||
+        name == 'bool') {
+      return '${name}Value';
+    }
+
+    return name;
+  }
+
   String createClass() {
     final buffer = StringBuffer();
     // buffer.writeln('// ignore_for_file: camel_case_types');
@@ -45,7 +97,7 @@ jsonDecode(json['${element.name}'].toString()) as Map<String, dynamic>
       buffer.writeln('  $className({');
       for (final prop in properties) {
         buffer.writeln(
-            ' ${prop.isNullable ? "" : "required"}   this.${prop.dartName},');
+            ' ${prop.isNullable ? "" : "required"}   this.${_appendValue(prop.dartName)},');
       }
       buffer.writeln('});');
 
