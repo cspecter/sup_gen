@@ -105,7 +105,7 @@ class TableProperty {
             'bigserial':
         return 'int';
 
-      case 'numeric':
+      case 'numeric' || 'float' || 'float8' || 'float4' || 'real':
         return 'num';
       case 'boolean' || 'bool':
         return 'bool';
@@ -119,7 +119,9 @@ class TableProperty {
             'varchar' ||
             'timestamp' ||
             'timestamptz' ||
-            'date':
+            'date' ||
+            'tsvector' ||
+            '_uuid':
         return 'String';
       case 'json':
         return 'Map<String, dynamic>';
