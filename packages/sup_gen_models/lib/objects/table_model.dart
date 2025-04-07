@@ -121,7 +121,9 @@ class TableProperty {
             'timestamptz' ||
             'date' ||
             'tsvector' ||
-            '_uuid':
+            '_uuid' ||
+            '_varchar' ||
+            'geometry':
         return 'String';
       case 'json':
         return 'Map<String, dynamic>';
