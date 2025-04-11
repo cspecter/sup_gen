@@ -189,7 +189,7 @@ class TableProperty {
   }
 
   String get field {
-    return "final ${_appendValue(dartType)}${isNullable ? "?" : ""} $dartName;";
+    return "final ${_appendValue(dartType)}${isNullable ? "?" : ""} ${_appendValue(dartName)};";
   }
 }
 
