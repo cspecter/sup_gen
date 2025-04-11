@@ -4,6 +4,58 @@ import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sup_gen_model/extensions/string_extension.dart';
 
+/// A function that will append the word 'Value' to a name that is a protected
+/// keyword in Dart.
+/// For example, if the name is 'class', it will return 'classValue'.
+String _appendValue(String name) {
+  if (name == 'class' ||
+      name == 'abstract' ||
+      name == 'dynamic' ||
+      name == 'enum' ||
+      name == 'final' ||
+      name == 'native' ||
+      name == 'typedef' ||
+      name == 'void' ||
+      name == 'var' ||
+      name == 'void' ||
+      name == 'async' ||
+      name == 'await' ||
+      name == 'yield' ||
+      name == 'deferred' ||
+      name == 'external' ||
+      name == 'factory' ||
+      name == 'implements' ||
+      name == 'interface' ||
+      name == 'is' ||
+      name == 'mixin' ||
+      name == 'operator' ||
+      name == 'part' ||
+      name == 'static' ||
+      name == 'this' ||
+      name == 'typedef' ||
+      name == 'yield' ||
+      name == 'abstract' ||
+      name == 'assert' ||
+      name == 'break' ||
+      name == 'case' ||
+      name == 'catch' ||
+      name == 'class' ||
+      name == 'const' ||
+      name == 'continue' ||
+      name == 'default' ||
+      name == 'do' ||
+      name == 'else' ||
+      name == 'enum' ||
+      name == 'extends' ||
+      name == 'false' ||
+      name == 'final' ||
+      name == 'bool') {
+    return '${name}Value';
+  }
+
+  return name;
+}
+
 @JsonSerializable(fieldRename: FieldRename.snake)
 class TableModel {
   final String name;
@@ -31,58 +83,6 @@ jsonDecode(json['${element.name}'].toString()) as Map<String, dynamic>
     buffer.writeln(");");
     buffer.writeln("}");
     return buffer.toString();
-  }
-
-  /// A function that will append the word 'Value' to a name that is a protected
-  /// keyword in Dart.
-  /// For example, if the name is 'class', it will return 'classValue'.
-  String _appendValue(String name) {
-    if (name == 'class' ||
-        name == 'abstract' ||
-        name == 'dynamic' ||
-        name == 'enum' ||
-        name == 'final' ||
-        name == 'native' ||
-        name == 'typedef' ||
-        name == 'void' ||
-        name == 'var' ||
-        name == 'void' ||
-        name == 'async' ||
-        name == 'await' ||
-        name == 'yield' ||
-        name == 'deferred' ||
-        name == 'external' ||
-        name == 'factory' ||
-        name == 'implements' ||
-        name == 'interface' ||
-        name == 'is' ||
-        name == 'mixin' ||
-        name == 'operator' ||
-        name == 'part' ||
-        name == 'static' ||
-        name == 'this' ||
-        name == 'typedef' ||
-        name == 'yield' ||
-        name == 'abstract' ||
-        name == 'assert' ||
-        name == 'break' ||
-        name == 'case' ||
-        name == 'catch' ||
-        name == 'class' ||
-        name == 'const' ||
-        name == 'continue' ||
-        name == 'default' ||
-        name == 'do' ||
-        name == 'else' ||
-        name == 'enum' ||
-        name == 'extends' ||
-        name == 'false' ||
-        name == 'final' ||
-        name == 'bool') {
-      return '${name}Value';
-    }
-
-    return name;
   }
 
   String createClass() {
@@ -189,7 +189,7 @@ class TableProperty {
   }
 
   String get field {
-    return "final $dartType${isNullable ? "?" : ""} $dartName;";
+    return "final ${_appendValue(dartType)}${isNullable ? "?" : ""} $dartName;";
   }
 }
 
