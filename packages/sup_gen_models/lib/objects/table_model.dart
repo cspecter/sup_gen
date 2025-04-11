@@ -75,9 +75,10 @@ class TableModel {
 jsonDecode(json['${element.name}'].toString()) as Map<String, dynamic>
 ''';
         buffer.writeln(
-            "${element.dartName}: json['${element.name}'] != null ? $command: null,");
+            "${_appendValue(element.dartName)}: json['${element.name}'] != null ? $command: null,");
       } else {
-        buffer.writeln("${element.dartName}: json['${element.name}'],");
+        buffer.writeln(
+            "${_appendValue(element.dartName)}: json['${element.name}'],");
       }
     }
     buffer.writeln(");");
